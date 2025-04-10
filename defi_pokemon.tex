@@ -1,0 +1,174 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Decentralized Pokémon Trading Platform}
+\author{Michele Serra}
+\date{March 2025}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{gray!10},
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{orange},
+  showstringspaces=false
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+This project is a decentralized application (dApp) that enables users to mint, own, and trade Pokémon cards as NFTs on the Ethereum blockchain. It is built using Solidity (smart contracts), Hardhat (development environment), React (frontend), and Ethers.js (blockchain interaction).
+
+\section{Project Architecture}
+\subsection{Components}
+\begin{itemize}
+    \item \textbf{Smart Contracts (Solidity, Hardhat)}
+    \begin{itemize}
+        \item \texttt{PokemonNFT.sol}: Implements the ERC-721 standard for Pokémon NFTs.
+        \item \texttt{PokemonMarket.sol}: Implements a marketplace for fixed-price listings and auctions.
+        \item Key features:
+        \begin{itemize}
+            \item Minting, transferring, and pausing NFTs.
+            \item Commit-reveal mechanism for secure minting.
+            \item Fixed-price and auction-based trading.
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Backend (Hardhat Local Testnet)}
+    \begin{itemize}
+        \item Provides a local Ethereum blockchain for development and testing.
+    \end{itemize}
+    
+    \item \textbf{Frontend (React, Ethers.js, MetaMask Integration)}
+    \begin{itemize}
+        \item Connects to MetaMask for wallet authentication.
+        \item Allows users to mint, transfer, and trade Pokémon NFTs.
+        \item Displays owned Pokémon and active marketplace listings.
+    \end{itemize}
+\end{itemize}
+
+\section{Setup Instructions}
+\subsection{Prerequisites}
+Ensure the following are installed:
+\begin{itemize}
+    \item Node.js (v18 or v20 recommended)
+    \item MetaMask browser extension
+    \item Hardhat (Ethereum development framework)
+    \item VS Code or another code editor
+\end{itemize}
+
+\subsection{Clone the Repository}
+\begin{lstlisting}
+git clone https://github.com/obios-serra/defi_pokemon
+cd defi_pokemon
+\end{lstlisting}
+
+\subsection{Install Dependencies}
+\textbf{Backend:}
+\begin{lstlisting}
+cd defi_pokemon
+npm install
+\end{lstlisting}
+
+\textbf{Frontend:}
+\begin{lstlisting}
+cd frontend
+npm install
+\end{lstlisting}
+
+\subsection{Compile and Deploy Smart Contracts}
+\textbf{Start the Hardhat local network:}
+\begin{lstlisting}
+npx hardhat node
+\end{lstlisting}
+
+\textbf{Deploy the contract:}
+\begin{lstlisting}
+npx hardhat run scripts/deploy.js --network localhost
+\end{lstlisting}
+
+Copy the deployed contract address from the output.
+
+\subsection{Configure the Frontend}
+Open \texttt{frontend/src/App.js} and replace the contract address:
+
+\begin{lstlisting}
+const contractAddress = "0xYourContractAddress";
+\end{lstlisting}
+
+\subsection{Run the Frontend}
+\begin{lstlisting}
+cd frontend
+npm start
+\end{lstlisting}
+
+Then open your browser and navigate to \texttt{http://localhost:3000/}.
+
+\section{Features}
+\subsection{Mint Pokémon NFTs}
+\begin{itemize}
+    \item Admins can mint Pokémon directly.
+    \item Users can mint using a commit-reveal mechanism to prevent front-running.
+\end{itemize}
+
+\subsection{Transfer Pokémon}
+\begin{itemize}
+    \item Users can transfer Pokémon NFTs to other addresses.
+    \item Transfers are disabled when the contract is paused.
+\end{itemize}
+
+\subsection{Marketplace}
+\begin{itemize}
+    \item Fixed-price listings: Users can list and buy Pokémon NFTs at a set price.
+    \item Auctions: Users can create and participate in auctions for Pokémon NFTs.
+    \item Pull-payment model ensures secure fund withdrawals.
+\end{itemize}
+
+\section{Security Features}
+\begin{itemize}
+    \item \textbf{Reentrancy Protection:} Prevents reentrancy attacks using OpenZeppelin's \texttt{ReentrancyGuard}.
+    \item \textbf{Access Control:} Admin-only functions are restricted using \texttt{Ownable}.
+    \item \textbf{Pause Mechanism:} Admins can pause the contract during emergencies.
+    \item \textbf{Commit-Reveal Scheme:} Prevents front-running during minting.
+    \item \textbf{Input Validation:} Ensures valid inputs for all functions.
+    \item \textbf{Safe Transfers:} Uses \texttt{safeTransferFrom} to prevent token loss.
+    \item \textbf{Event Logging:} Emits events for transparency and debugging.
+\end{itemize}
+
+\section{Testing}
+\begin{itemize}
+    \item Run the test suite:
+    \begin{lstlisting}
+    npx hardhat test
+    \end{lstlisting}
+    \item Generate a test coverage report:
+    \begin{lstlisting}
+    npx hardhat coverage
+    \end{lstlisting}
+\end{itemize}
+
+\section{Future Enhancements}
+\begin{itemize}
+    \item Deploy to a public testnet (e.g., Goerli or Sepolia).
+    \item Add images and metadata for each Pokémon.
+    \item Implement platform fees for marketplace transactions.
+    \item Enhance the UI with real-time updates and better visuals.
+\end{itemize}
+
+\section{Technical Support \& References}
+\begin{itemize}
+    \item \href{https://hardhat.org/}{Hardhat Documentation}
+    \item \href{https://docs.openzeppelin.com/contracts/}{OpenZeppelin Contracts}
+    \item \href{https://docs.ethers.io/}{Ethers.js}
+    \item \href{https://metamask.io/}{MetaMask}
+\end{itemize}
+
+\end{document}
