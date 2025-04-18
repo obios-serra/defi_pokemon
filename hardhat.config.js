@@ -1,6 +1,6 @@
 require("dotenv").config();
 require("@nomicfoundation/hardhat-toolbox");
-require("./tasks/accounts");
+//require("./tasks/accounts");
 
 const fs = require("fs");
 const path = require("path");
@@ -29,16 +29,16 @@ module.exports = {
   solidity: "0.8.28",
   networks: {
     hardhat: {
-      accounts: {
-        mnemonic: process.env.SEED_PHRASE,
-      },
+      //accounts: {
+      //  mnemonic: process.env.SEED_PHRASE,
+     // },
       chainId: 1337,
     },
     localhost: {
       url: "http://127.0.0.1:8545",
-      accounts: {
-        mnemonic: process.env.SEED_PHRASE,
-      },
+      //accounts: {
+      //  mnemonic: process.env.SEED_PHRASE,
+      //},
       chainId: 1337,
     },
   },
